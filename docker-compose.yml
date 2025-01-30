@@ -1,0 +1,6 @@
+services:
+  rocket:
+    build: .
+    ports:
+      - 8000:8000
+  surrealdb/surrealdb:latest:

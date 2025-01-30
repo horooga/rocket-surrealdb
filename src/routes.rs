@@ -1,21 +1,25 @@
 use surrealdb::opt::auth::Record;
 use crate::error::Error;
-use crate::DB;
 use rocket::serde::json::Json;
 use rocket::{delete, get, post, put};
 use serde::{Deserialize, Serialize};
 use surrealdb::RecordId;
 
 #[derive(Serialize, Deserialize, Clone)]
+pub struct MessageData {
+    name: String,
+}
+
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Message {
     name: String,
 }
 
-#[post("/person/<id>", data = "<person>")]
+#[post("/message/<id>", data = "<message>")]
 pub async fn create_message(
     id: String,
     message: Json<MessageData>,
-) -> Result<Json<Option<Person>>, Error> {
+) -> Result<Json<Option<Message>>, Error> {
     let message = DB
         .create(("message", &*id))
         .content(message.into_inner())
@@ -24,7 +28,7 @@ pub async fn create_message(
 }
 
 #[get("/messages")]
-pub async fn list_messages() -> Result<Json<Vec<Person>>, Error> {
+pub async fn list_messages() -> Result<Json<Vec<Message>>, Error> {
     let message = DB.select("message").await?;
     Ok(Json(message))
 }

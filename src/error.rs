@@ -1,6 +1,4 @@
-use rocket::http::Status;
-use rocket::response::{self, Responder, Response};
-use rocket::Request;
+use rocket::{*, http::Status, response::{self, Responder, Response}, Request};
 use thiserror::Error;
 
 #[derive(Error, Debug)]
