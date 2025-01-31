@@ -3,4 +3,14 @@ services:
     build: .
     ports:
       - 8000:8000
-  surrealdb/surrealdb:latest:
+  surrealdb:
+    entrypoint: 
+      - /surreal 
+      - start 
+      - --user
+      - user0
+      - --pass
+      - password0
+    image: surrealdb/surrealdb:latest
+    ports:
+      - 8001:8001
